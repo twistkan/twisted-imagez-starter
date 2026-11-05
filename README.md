@@ -1,5 +1,7 @@
 # Twisted Imagez Starter
 
+**[Download for Windows](https://github.com/twistkan/twisted-imagez-starter/releases/download/v1.0.0/TwistedImagez.OneClick.exe)** · [Release notes and checksums](https://github.com/twistkan/twisted-imagez-starter/releases/tag/v1.0.0)
+
 [![Buy me a coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-Support%20Twist%20Apps-FFDD00?style=flat&logo=buymeacoffee&logoColor=black)](https://www.yotip.me/twistkan)
 
 Local Windows booking, quotation and invoicing app for photography and filming.
