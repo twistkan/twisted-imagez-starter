@@ -1,0 +1,11 @@
+{
+  "clients": [],
+  "jobs": [],
+  "quotations": [],
+  "invoices": [],
+  "settings": {
+    "depositRate": 50,
+    "validityDays": 30,
+    "taxRate": 0
+  }
+}
