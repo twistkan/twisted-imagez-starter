@@ -1,6 +1,6 @@
 # Twisted Imagez Starter
 
-**[Download for Windows](https://github.com/twistkan/twisted-imagez-starter/releases/download/v1.0.0/TwistedImagez.OneClick.exe)** · [Release notes and checksums](https://github.com/twistkan/twisted-imagez-starter/releases/tag/v1.0.0)
+**[Download for Windows](https://github.com/twistkan/twisted-imagez-starter/releases/download/v1.0.1/TwistedImagez.OneClick.exe)** · [Release notes and checksums](https://github.com/twistkan/twisted-imagez-starter/releases/tag/v1.0.1)
 
 [![Buy me a coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-Support%20Twist%20Apps-FFDD00?style=flat&logo=buymeacoffee&logoColor=black)](https://www.yotip.me/twistkan)
 
@@ -12,7 +12,7 @@ Local Windows booking, quotation and invoicing app for photography and filming.
 
 ## First launch
 
-Create your local login, then enter your business name. Contact details, bank details and a logo are optional. Edit them later under **Business settings**. Quotation templates start with zero rates so you can enter your own prices.
+Create your local login, then enter your business name. Contact details, bank details and a logo are optional. Edit them later under **Business settings**. Enter your own **Unit price (UGX)** on each quotation line, including template items. Line totals and the quotation total update as you type.
 
 ## Main Windows download
 
