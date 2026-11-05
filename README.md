@@ -20,7 +20,15 @@ To update, close any running Starter window and launch the new executable. Your 
 
 1. Create a local login.
 2. Enter your business name. Contact details, bank details and a logo are optional.
-3. Open the workspace. You can edit your details and add, replace or remove your logo under **Business settings**. The Windows desktop shortcut uses your saved logo and switches back to the default icon when you remove it.
+3. Open the workspace. You can edit your details later under **Business settings**.
+
+## Use your logo on the desktop shortcut
+
+In v1.0.3 or later, the **Twisted Imagez Starter** shortcut on your Windows desktop uses your saved business logo. If you already have a logo saved, it applies automatically when you open the updated app.
+
+1. Open **Business settings** and choose an image under **Business logo**. Use a PNG, JPEG or WebP file up to 1 MB.
+2. Click **Save business details** to update the desktop shortcut. To replace the logo, choose a different image and save again.
+3. To restore the default shortcut icon, select **Remove saved logo** and click **Save business details**.
 
 ## Price a quotation
 
