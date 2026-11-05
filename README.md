@@ -4,6 +4,10 @@
 
 Local Windows booking, quotation and invoicing app for photography and filming.
 
+## Screenshot
+
+![Twisted Imagez Starter business setup form with blank fields and an optional logo upload](docs/screenshots/business-setup.png)
+
 ## First launch
 
 Create your local login, then enter your business name. Contact details, bank details and a logo are optional. Edit them later under **Business settings**. Quotation templates start with zero rates so you can enter your own prices.
