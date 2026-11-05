@@ -21,6 +21,34 @@ function businessLogo() {
   return logo ? `<img src="${esc(logo)}" alt="Business logo">` : '';
 }
 
+let shortcutLogoSent;
+
+async function syncShortcutLogo() {
+  const host = window.chrome?.webview;
+  const logo = state.business.logo;
+  if (!host || shortcutLogoSent === logo) return;
+  shortcutLogoSent = logo;
+  try {
+    let png = '';
+    if (logo) {
+      const image = new Image();
+      image.src = logo;
+      await image.decode();
+      if (state.business.logo !== logo || shortcutLogoSent !== logo) return;
+      const canvas = document.createElement('canvas');
+      canvas.width = canvas.height = 128;
+      const scale = 128 / Math.max(image.naturalWidth, image.naturalHeight);
+      const width = image.naturalWidth * scale;
+      const height = image.naturalHeight * scale;
+      canvas.getContext('2d').drawImage(image, (128 - width) / 2, (128 - height) / 2, width, height);
+      png = canvas.toDataURL('image/png').split(',')[1];
+    }
+    host.postMessage('shortcut-logo:' + png);
+  } catch {
+    if (shortcutLogoSent === logo) shortcutLogoSent = undefined;
+  }
+}
+
 function businessBankDetails() {
   return businessFields.slice(5).filter(([key]) => state.business[key]).map(([key, label]) =>
     `<p><strong>${label}:</strong> ${esc(state.business[key])}</p>`).join('');
@@ -259,6 +287,7 @@ function syncDepositTerms(text, rate) {
 }
 function render() {
   const app = document.getElementById('app');
+  void syncShortcutLogo();
   if (!isAuthenticated()) { app.innerHTML = loginPage(); bindLoginEvents(); return; }
   if (!state.business.name) { app.innerHTML = businessForm(true); bindBusinessForm(true); return; }
   app.innerHTML = `<div class="shell"><aside class="sidebar">${sidebar()}</aside><section class="main"><header class="topbar"><div><h2>${pageTitle()}</h2><small>Booking, quotation and invoice workspace</small></div><div class="top-actions"><button class="btn" data-logout>Logout</button><button class="btn primary" data-action="new-quote">+ New quotation</button></div></header><main class="content">${pageContent()}</main></section></div>`;

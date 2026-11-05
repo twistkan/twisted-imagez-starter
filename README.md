@@ -1,6 +1,6 @@
 # Twisted Imagez Starter
 
-**[Download for Windows (v1.0.2)](https://github.com/twistkan/twisted-imagez-starter/releases/download/v1.0.2/TwistedImagez.OneClick.exe)** · [Release notes and checksums](https://github.com/twistkan/twisted-imagez-starter/releases/tag/v1.0.2)
+**[Download for Windows (v1.0.3)](https://github.com/twistkan/twisted-imagez-starter/releases/download/v1.0.3/TwistedImagez.OneClick.exe)** · [Release notes and checksums](https://github.com/twistkan/twisted-imagez-starter/releases/tag/v1.0.3)
 
 [![Buy me a coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-Support%20Twist%20Apps-FFDD00?style=flat&logo=buymeacoffee&logoColor=black)](https://www.yotip.me/twistkan)
 
@@ -20,7 +20,7 @@ To update, close any running Starter window and launch the new executable. Your 
 
 1. Create a local login.
 2. Enter your business name. Contact details, bank details and a logo are optional.
-3. Open the workspace. You can edit your details and add, replace or remove your logo under **Business settings**.
+3. Open the workspace. You can edit your details and add, replace or remove your logo under **Business settings**. The Windows desktop shortcut uses your saved logo and switches back to the default icon when you remove it.
 
 ## Price a quotation
 

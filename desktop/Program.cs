@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Net.Http;
 using System.Reflection;
+using System.Security.Cryptography;
 using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.WinForms;
 
@@ -104,6 +105,7 @@ internal sealed class MainForm : Form
             await _browser.EnsureCoreWebView2Async(environment);
             _browser.CoreWebView2.Settings.AreDefaultContextMenusEnabled = true;
             _browser.CoreWebView2.Settings.IsStatusBarEnabled = false;
+            _browser.CoreWebView2.WebMessageReceived += UpdateShortcutLogo;
             _browser.CoreWebView2.Navigate($"http://127.0.0.1:{Port}/app/");
         }
         catch (Exception ex)
@@ -160,13 +162,59 @@ internal sealed class MainForm : Form
         }
     }
 
-    private void EnsureDesktopShortcut()
+    private void UpdateShortcutLogo(object? sender, CoreWebView2WebMessageReceivedEventArgs args)
+    {
+        if (args.Source != $"http://127.0.0.1:{Port}/app/") return;
+        const string prefix = "shortcut-logo:";
+        try
+        {
+            var message = args.TryGetWebMessageAsString();
+            if (!message.StartsWith(prefix, StringComparison.Ordinal) || message.Length > 100_000) return;
+            var encoded = message[prefix.Length..];
+            if (encoded.Length == 0)
+            {
+                EnsureDesktopShortcut(refresh: true);
+                return;
+            }
+
+            var png = Convert.FromBase64String(encoded);
+            ReadOnlySpan<byte> pngHeader = [137, 80, 78, 71, 13, 10, 26, 10];
+            if (!png.AsSpan().StartsWith(pngHeader)) return;
+
+            var iconDirectory = Path.Combine(_root, "data", "shortcut-icons");
+            Directory.CreateDirectory(iconDirectory);
+            var hash = Convert.ToHexString(SHA256.HashData(png));
+            var iconPath = Path.Combine(iconDirectory, $"logo-{hash}.ico");
+            if (!File.Exists(iconPath))
+            {
+                using var writer = new BinaryWriter(File.Create(iconPath));
+                writer.Write((ushort)0); // Reserved
+                writer.Write((ushort)1); // ICO
+                writer.Write((ushort)1); // One image
+                writer.Write((byte)128);
+                writer.Write((byte)128);
+                writer.Write((ushort)0); // Palette and reserved bytes
+                writer.Write((ushort)1); // Color planes
+                writer.Write((ushort)32);
+                writer.Write(png.Length);
+                writer.Write(22); // Offset of the PNG
+                writer.Write(png);
+            }
+            EnsureDesktopShortcut(iconPath, refresh: true);
+        }
+        catch
+        {
+            // An unavailable desktop or invalid icon must not interrupt the workspace.
+        }
+    }
+
+    private void EnsureDesktopShortcut(string? iconPath = null, bool refresh = false)
     {
         var desktop = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
         if (string.IsNullOrWhiteSpace(desktop)) return;
 
         var shortcutPath = Path.Combine(desktop, "Twisted Imagez Starter.lnk");
-        if (File.Exists(shortcutPath)) return;
+        if (!refresh && File.Exists(shortcutPath)) return;
 
         try
         {
@@ -174,9 +222,12 @@ internal sealed class MainForm : Form
             if (shellType is null) return;
             dynamic shell = Activator.CreateInstance(shellType)!;
             dynamic shortcut = shell.CreateShortcut(shortcutPath);
+            var iconLocation = (iconPath ?? Application.ExecutablePath) + ",0";
+            if (string.Equals((string)shortcut.TargetPath, Application.ExecutablePath, StringComparison.OrdinalIgnoreCase)
+                && string.Equals((string)shortcut.IconLocation, iconLocation, StringComparison.OrdinalIgnoreCase)) return;
             shortcut.TargetPath = Application.ExecutablePath;
             shortcut.WorkingDirectory = _root;
-            shortcut.IconLocation = Application.ExecutablePath + ",0";
+            shortcut.IconLocation = iconLocation;
             shortcut.Description = "Open Twisted Imagez booking and invoicing";
             shortcut.Save();
         }
