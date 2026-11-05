@@ -19,7 +19,7 @@ internal static class Program
 internal sealed class MainForm : Form
 {
     private const int Port = 18767;
-    private readonly string _root = ResolveRuntimeRoot();
+    private string _root = AppContext.BaseDirectory;
     private readonly HttpClient _http = new() { Timeout = TimeSpan.FromMilliseconds(500) };
     private readonly WebView2 _browser = new() { Dock = DockStyle.Fill };
     private Process? _server;
@@ -41,7 +41,7 @@ internal sealed class MainForm : Form
     {
         var baseDirectory = AppContext.BaseDirectory;
         var processName = Path.GetFileNameWithoutExtension(Environment.ProcessPath ?? string.Empty);
-        if (string.Equals(processName, "TwistedImagez.OneClick", StringComparison.OrdinalIgnoreCase))
+        if (!string.Equals(processName, "TwistedImagez.Desktop", StringComparison.OrdinalIgnoreCase))
             return ExtractEmbeddedRuntime();
 
         if (File.Exists(Path.Combine(baseDirectory, "server.ps1"))) return baseDirectory;
@@ -94,6 +94,7 @@ internal sealed class MainForm : Form
     {
         try
         {
+            _root = ResolveRuntimeRoot();
             EnsureDesktopShortcut();
             await EnsureServerAsync();
 
@@ -108,7 +109,7 @@ internal sealed class MainForm : Form
         catch (Exception ex)
         {
             MessageBox.Show(
-                "Twisted Imagez could not start. Make sure Microsoft Edge WebView2 Runtime is installed, then try again.\n\n" + ex.Message,
+                "Twisted Imagez Starter could not start.\n\n" + ex.Message,
                 "Twisted Imagez Starter",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Error);

@@ -1,6 +1,6 @@
 # Twisted Imagez Starter
 
-**[Download for Windows](https://github.com/twistkan/twisted-imagez-starter/releases/download/v1.0.1/TwistedImagez.OneClick.exe)** · [Release notes and checksums](https://github.com/twistkan/twisted-imagez-starter/releases/tag/v1.0.1)
+**[Download for Windows](https://github.com/twistkan/twisted-imagez-starter/releases/download/v1.0.2/TwistedImagez.OneClick.exe)** · [Release notes and checksums](https://github.com/twistkan/twisted-imagez-starter/releases/tag/v1.0.2)
 
 [![Buy me a coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-Support%20Twist%20Apps-FFDD00?style=flat&logo=buymeacoffee&logoColor=black)](https://www.yotip.me/twistkan)
 
@@ -17,8 +17,7 @@ Create your local login, then enter your business name. Contact details, bank de
 ## Main Windows download
 
 **`TwistedImagez.OneClick.exe`** is the main installer/launcher. Download it from
-this repository's **Releases** page and double-click it. Keep this exact filename:
-the application uses it to select its self-contained one-click mode.
+this repository's **Releases** page and double-click it. The one-click download also opens if your browser adds a suffix to the filename.
 No Python or Node.js installation is required. Microsoft Edge WebView2 Runtime
 must be available.
 
